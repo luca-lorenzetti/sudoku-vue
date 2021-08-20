@@ -1,5 +1,5 @@
 {
-  "name": "test_project",
+  "name": "Sudoku",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "register-service-worker": "^1.7.1",
+    "vue-meta": "^2.4.0",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
