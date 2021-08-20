@@ -14,8 +14,20 @@
   padding: 0;
   box-sizing: border-box;
 }
+$font_path: '~@/assets/font/';
 
+// REGULAR
+@font-face{
+  font-family: "Sudoku";
+  src: local("Sudoku"),
+   url($font_path +'Sudoku.ttf') format("truetype");
+}
 
+body{
+  > *{
+    font-family: "Sudoku";
+  }
+}
 #app{
   width: 100%;
 }
