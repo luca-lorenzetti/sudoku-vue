@@ -24,7 +24,7 @@ export default new Vuex.Store({
   actions: {
     fillMatrixWithZero(state){
       state.commit('fillMatrixWithZero')
-    }
+    },
   },
   getters:{
     getMatrix(state){

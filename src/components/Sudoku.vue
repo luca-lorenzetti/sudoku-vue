@@ -19,11 +19,90 @@ export default {
     }
   },
   created(){
-    this.$store.commit('fillMatrixWithZero');
+    this.$store.commit("fillMatrixWithZero");
+    
     this.matrix = this.$store.getters.getMatrix;
+    this.matrix = this.genSudoku(this.matrix);
   },
   mounted(){
-    console.log(this.matrix[0])
+  },
+
+  methods:{
+    
+    // Function to generate random number
+    getRandomNum(min, max){
+        return Math.floor( Math.random() * (max + min) );
+      },
+
+    // Function oo check in vertical
+    foundVertical(matrix, num, j){
+
+        for (let i = 0; i < 9; i++) {
+            
+            if( matrix[i][j] == num){
+                return true;
+            }
+        }
+
+        return false;
+    },
+
+    // Function to reset a matrix row
+    resetMatrixRow (array){
+
+        for (let i = 0; i < array.length; i++) {
+            array[i] = 0;        
+        }
+        return array;
+    },
+
+    // Function to check a square
+    checkSquare(y,x,num,arrGen){
+        for (let i = y-(y%3); i < y-(y%3)+3; i++) {
+
+            for (let j = x-(x%3); j < x-(x%3)+3; j++) {
+              if(arrGen[i][j] == num  ){
+                return true;
+              }
+            }
+            
+          }
+
+          return false;
+    },
+
+    // Main function to generate sudoku
+    genSudoku(matrix){
+
+        let numTmp = 0,
+            attempts = 0,
+            j = 0,
+            i = 0;
+
+        while ( i < matrix.length ) {
+          j = 0;
+          attempts = 0;
+
+              while( j < matrix[i].length ) {
+                  if ( attempts > 100 ){
+                  matrix[i] = this.resetMatrixRow(matrix[i]);
+                  i--;
+                  break;
+                  }
+                  numTmp = this.getRandomNum(1, 9);
+                  if ( !this.foundVertical(matrix,numTmp,j) && !this.checkSquare(i,j,numTmp,matrix) && !matrix[i].includes(numTmp) ){
+                      matrix[i][j] = numTmp;
+                      j++;
+                  }
+                  else{
+                      attempts++;
+                  }
+              }
+              i++;
+        } 
+        
+        return matrix;
+    }
   }
 
 };
