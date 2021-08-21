@@ -2,8 +2,8 @@
   <div class="sudoku">
     <table class="table">
       <tbody>
-        <tr v-for="(row, indexRow) in 9" v-bind:key="indexRow">
-          <td class="cell" v-for="(cell, indexCell) in matrix[row-1]" v-bind:key="indexCell"> <input type="text" id="inputNumber" name="inputNumber" maxlength="1" v-bind:value="cell" max="9" min="1"></td>
+        <tr v-for="(row, indexRow) in 9" v-bind:key="indexRow" :class="[{'border_bottom' : (indexRow-2)%3 == 0},{'border_top' : indexRow == 0}]">
+          <td :class="[{'border_right' : (indexCell-2)%3 == 0},{'border_left' : indexCell == 0}]" class="cell" v-for="(cell, indexCell) in matrix[row-1]" v-bind:key="indexCell"> <input type="text" id="inputNumber" name="inputNumber" maxlength="1" v-bind:value="cell" max="9" min="1"></td>
         </tr>
       </tbody>
     </table>
@@ -31,26 +31,39 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+
+table{
+  width: auto;
+  text-align: center;
+  margin: 20px auto;
+
+.border_top{
+  border-top: 2px solid #000;
 }
 
-tr{
-  max-width: 500px !important;
+.border_bottom{
+  border-bottom: 2px solid #000;
 }
-.cell{
-  padding: 0;
-    max-width: 80px !important;
 
-  input{
-    text-align: center;
-    font-size: 30px;
-    width: 80px;
-    height: 80px;
+.border_right{
+  border-right: 2px solid #000;
+}
+
+.border_left{
+  border-left: 2px solid #000;
+}
+  .cell{
+    padding: 0;
+
+    input{
+      text-align: center;
+      font-size: 30px;
+      width: 70px;
+      height: 70px;
+    }
   }
 }
+
 
 
 h3 {
