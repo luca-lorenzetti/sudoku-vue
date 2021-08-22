@@ -4,7 +4,13 @@
       <img alt="Vue logo" src="../assets/logo.png" />
     </div>
     <div v-if="status == 0" class="play_button mt-5">
-      <button v-on:click="setStatus(1)" type="button" class="btn btn-dark pr-5 pl-5">Let's play</button>
+      <button
+        v-on:click="setStatus(1)"
+        type="button"
+        class="btn btn-dark pr-5 pl-5"
+      >
+        Let's play
+      </button>
     </div>
     <sudoku v-if="status == 1" />
   </div>
@@ -14,41 +20,40 @@
 // @ is an alias to /src
 import Sudoku from "@/components/Sudoku.vue";
 
-
 export default {
-  data () {
+  data() {
     return {
-      status: null
-    }
+      status: null,
+    };
   },
-  mounted(){
+  mounted() {
     this.status = 0;
   },
-  methods:{
-    setStatus(num){
+  methods: {
+    setStatus(num) {
       this.status = num;
-    }
+    },
   },
-  props: {
-  },
+  props: {},
   name: "Home",
   metaInfo() {
-        return { 
-          title: "Sudoku",
-        }
-    },
+    return {
+      title: "Sudoku",
+    };
+  },
   components: {
-    Sudoku
+    Sudoku,
   },
 };
 </script>
 
 <style lang="scss">
-.logo, .play_button{
+.logo,
+.play_button {
   text-align: center;
 }
-.play_button{
-  > button{
+.play_button {
+  > button {
     font-size: 50px;
   }
 }
