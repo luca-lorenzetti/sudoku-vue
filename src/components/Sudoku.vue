@@ -162,12 +162,12 @@ export default {
     setValue(x, y) {
       if (!isNaN(this.matrix[x][y])) {
         if (this.matrix[x][y] > 0) {
-          this.value = this.matrix[x][y];
+          this.value = parseInt(this.matrix[x][y]);
           this.matrix[x][y] = null;
-
           if (
             !this.foundVertical(this.matrix, this.value, y) &&
-            !this.checkSquare(x, y, this.value, this.matrix)
+            !this.checkSquare(x, y, this.value, this.matrix) &&
+            !this.matrix[x].includes(this.value)
           ) {
             this.matrix[x][y] = this.value;
             this.user[x][y] = true;
