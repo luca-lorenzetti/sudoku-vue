@@ -12,13 +12,17 @@
         Let's play
       </button>
     </div>
-    <sudoku v-if="status == 1" />
+    <stop-watch v-if="status == 1"></stop-watch>
+    <transition name="bounce">
+      <sudoku v-if="status == 1" />
+    </transition>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Sudoku from "@/components/Sudoku.vue";
+import StopWatch from "@/components/StopWatch.vue";
 
 export default {
   data() {
@@ -27,7 +31,7 @@ export default {
     };
   },
   mounted() {
-    this.status = 0;
+    this.status = this.$store.getters.getStatus
   },
   methods: {
     setStatus(num) {
@@ -43,6 +47,7 @@ export default {
   },
   components: {
     Sudoku,
+    StopWatch,
   },
 };
 </script>
@@ -55,6 +60,24 @@ export default {
 .play_button {
   > button {
     font-size: 50px;
+  }
+}
+
+.bounce-enter-active {
+  animation: bounce-in 1.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 1.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 </style>

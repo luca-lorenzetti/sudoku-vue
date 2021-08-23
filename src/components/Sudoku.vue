@@ -1,6 +1,10 @@
 /* eslint-disable prettier/prettier */ /* eslint-disable prettier/prettier */
 <template>
   <div class="sudoku">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="helps" />
+      <label class="form-check-label" for="helps">Helps</label>
+    </div>
     <table class="table">
       <tbody>
         <tr
@@ -30,6 +34,7 @@
               max="9"
               min="1"
               :disabled="cell && !user[indexRow][indexCell]"
+              autocomplete="off"
             />
           </td>
         </tr>
@@ -171,6 +176,9 @@ export default {
           ) {
             this.matrix[x][y] = this.value;
             this.user[x][y] = true;
+            if (this.$store.getters.getStatus == 0) {
+              this.$store.commit("setStatus", 1);
+            }
           } else {
             this.value = null;
           }
