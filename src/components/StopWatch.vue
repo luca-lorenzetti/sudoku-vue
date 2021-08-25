@@ -7,18 +7,21 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      startStopWatch: false
+    };
   },
 
   mounted() {
     // eslint-disable-next-line no-unused-vars
     let checkStatus = setInterval(() => {
-      if (this.$store.getters.getStatus == 1) {
+      if (this.$store.getters.getStatus == 2 && !this.startStopWatch) {
+      console.log("Avvio");
+        
         this.$store.commit("startTime");
-        this.$store.commit("setStatus", 2);
-
+        this.startStopWatch = true;
       }
-    }, 500);
+    }, 1000);
   },
   methods: {},
   name: "StopWatch",

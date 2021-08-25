@@ -46,6 +46,9 @@ export default new Vuex.Store({
         }
       }, 1000);
     },
+    setMatrix(state, matrix){
+      state.matrix = matrix;
+    }
   },
   actions: {
     fillMatrixWithZero(state) {
@@ -60,6 +63,10 @@ export default new Vuex.Store({
       console.log("Setto status a" + status);
       state.commit("setStatus", status);
     },
+
+    setMatrix(state, matrix){
+      state.commit("setMatrix", matrix)
+    }
   },
   getters: {
     getMatrix(state) {

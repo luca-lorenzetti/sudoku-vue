@@ -3,7 +3,7 @@
     <div class="logo p-5 bg-light border rounded">
       <img alt="Vue logo" src="../assets/logo.png" />
     </div>
-    <div v-if="status == 0" class="play_button mt-5">
+    <div v-if="this.$store.getters.getStatus == 0" class="play_button mt-5">
       <button
         v-on:click="setStatus(1)"
         type="button"
@@ -12,10 +12,12 @@
         Let's play
       </button>
     </div>
-    <stop-watch v-if="status == 1"></stop-watch>
+    <stop-watch v-if="this.$store.getters.getStatus >= 1"></stop-watch>
     <transition name="bounce">
-      <sudoku v-if="status == 1" />
+      <sudoku v-if="this.$store.getters.getStatus > 0 && this.$store.getters.getStatus != 5" />
     </transition>
+
+    <h2 v-if="this.$store.getters.getStatus == 5">Sudoku completato</h2>
   </div>
 </template>
 
@@ -27,18 +29,19 @@ import StopWatch from "@/components/StopWatch.vue";
 export default {
   data() {
     return {
-      status: null,
+     
     };
   },
   mounted() {
-    this.status = this.$store.getters.getStatus
+   
+    
   },
   methods: {
     setStatus(num) {
-      this.status = num;
+      this.$store.commit("setStatus", num);
     },
   },
-  props: {},
+
   name: "Home",
   metaInfo() {
     return {

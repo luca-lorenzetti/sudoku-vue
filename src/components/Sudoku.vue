@@ -65,13 +65,10 @@ export default {
     this.$store.commit("fillMatrixWithZero");
 
     this.matrix = this.$store.getters.getMatrix;
-
     this.matrix = this.genSudoku(this.matrix);
     this.matrix = this.removeNumbers(this.matrix);
   },
-  mounted() {
-    this.start = true;
-  },
+  mounted() {},
 
   methods: {
     // Function to generate random number
@@ -110,7 +107,18 @@ export default {
 
       return false;
     },
+    isComplete() {
+      let complete = true;
+      this.$store.getters.getMatrix.forEach((arr) => {
+        arr.forEach((element) => {
+          if (!element) {
+            complete = false;
+          }
+        });
+      });
 
+      return complete;
+    },
     // Main function to generate sudoku
     genSudoku(matrix) {
       let numTmp = 0,
@@ -169,6 +177,9 @@ export default {
         if (this.matrix[x][y] > 0) {
           this.value = parseInt(this.matrix[x][y]);
           this.matrix[x][y] = null;
+          if (this.$store.getters.getStatus == 1) {
+            this.$store.commit("setStatus", 2);
+          }
           if (
             !this.foundVertical(this.matrix, this.value, y) &&
             !this.checkSquare(x, y, this.value, this.matrix) &&
@@ -176,8 +187,11 @@ export default {
           ) {
             this.matrix[x][y] = this.value;
             this.user[x][y] = true;
-            if (this.$store.getters.getStatus == 0) {
-              this.$store.commit("setStatus", 1);
+            this.$store.commit("setMatrix", this.matrix);
+
+            if (this.isComplete()) {
+              console.log("Completo");
+              this.$store.commit("setStatus", 5);
             }
           } else {
             this.value = null;
