@@ -15,6 +15,7 @@ export default new Vuex.Store({
   },
   mutations: {
     fillMatrixWithZero(state) {
+      state.matrix = [];
       for (let i = 0; i < 9; i++) {
         let arr = [];
 

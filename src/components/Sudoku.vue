@@ -122,18 +122,26 @@ export default {
     // Main function to generate sudoku
     genSudoku(matrix) {
       let numTmp = 0,
+        // eslint-disable-next-line no-unused-vars
         attempts = 0,
+        attemptsRow = 0,
         j = 0,
         i = 0;
 
       while (i < matrix.length) {
         j = 0;
-        attempts = 0;
-
+        attemptsRow = 0;
+        if(attempts > 50){
+          this.$store.commit("fillMatrixWithZero");
+          i = 0;
+          attempts = 0;
+          console.log("Cancello tutto")
+        }
         while (j < matrix[i].length) {
-          if (attempts > 100) {
+          if (attemptsRow > 100) {
             matrix[i] = this.resetMatrixRow(matrix[i]);
             i--;
+            attempts++;
             break;
           }
           numTmp = this.getRandomNum(1, 9);
@@ -145,7 +153,7 @@ export default {
             matrix[i][j] = numTmp;
             j++;
           } else {
-            attempts++;
+            attemptsRow++;
           }
         }
         i++;
